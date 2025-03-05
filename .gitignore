@@ -1,0 +1,39 @@
+# Node.js dependencies (both frontend & backend)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build artifacts
+build/
+dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Editor & OS specific files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Cache & Temp files
+.cache/
+.npm/
+.parcel-cache/
+.next/
+out/
+
+# Database files (if using local DB)
+*.sqlite
+*.sqlite3
+dump.rdb
