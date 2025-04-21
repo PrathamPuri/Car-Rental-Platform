@@ -6,7 +6,6 @@ const router = express.Router();
 router.get('/getAllCars', async (req, res) => {
     try {
         const cars = await Car.find();
-        console.log("Fetched cars from DB:", cars);
         res.json(cars);
     } catch (error) {
         console.error("Error fetching cars:", error);

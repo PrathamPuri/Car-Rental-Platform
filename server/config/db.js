@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 
 function DBconnect(){
-    mongoose.connect('mongodb://localhost:27017/carRentalProject',{useUnifiedTopology:true,useNewUrlParser:true})
+    mongoose.connect('mongodb://localhost:27017/carRentalProject')
     const connection=mongoose.connection
 
     connection.on('connected',()=>console.log('connected'))
