@@ -26,7 +26,7 @@ router.post('/booking',async(req,res)=>{
 
 router.get('/getAllBookings', async (req, res) => {
     try {
-        const userId = req.body.userId || req.query.userId; // Or use req.user._id if you're using auth middleware
+        const userId = req.body.userId || req.query.userId; 
         if (!userId) {
           return res.status(400).json({ message: "User ID is required" });
         }

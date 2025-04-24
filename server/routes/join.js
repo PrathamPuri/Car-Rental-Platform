@@ -8,8 +8,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'puripratham11@gmail.com',         // 🔁 Replace with your email
-    pass: 'cnqo ujaw rnli fvpy',   // 🔁 Use app password if 2FA is on
+    user: 'puripratham11@gmail.com',        
+    pass: 'cnqo ujaw rnli fvpy',   
   },
 });
 
@@ -51,8 +51,7 @@ router.post('/join/:id', async (req, res) => {
 
     // Send email notification to ride owner
     const mailOptions = {
-      from: userEmail,  // Sender: logged-in user
-      to: ride.user.email,  // Recipient: ride owner
+      from: userEmail, 
       subject: 'Someone joined your carpool ride',
       text: `Hi ${ride.user.name},\n\nA user has joined your carpool ride from ${ride.startLocation} to ${ride.endLocation}.\n\nRide Details:\n- Date: ${new Date(ride.bookedTimeSlot.startDate).toLocaleString()}\n- Car: ${ride.car.name} (${ride.car.model})\n\nThanks for using our service!\n\nCar Pooling System`,
     };
