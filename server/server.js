@@ -15,6 +15,7 @@ app.use(cors());
 app.use('/api/cars', carRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/bookings',bookingRoutes);
+app.use('/',bookingRoutes);
 app.use('/api/pooling',poolingRoutes);
 app.use('/api/booking',joiningRoutes)
 

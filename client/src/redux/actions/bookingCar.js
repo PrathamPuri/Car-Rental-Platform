@@ -28,3 +28,26 @@ export const bookingCAr=(reqObj)=>async(dispatch)=>{
 
     }
 }
+
+export const getAllBookings=()=>async dispatch=>{
+    dispatch({type:'LOADING',payload:true})
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    try{
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getAllBookings`,
+            {
+                params: { userId: user._id }, // Pass userId as query param
+              }
+        )
+        console.log(process.env.REACT_APP_BACKEND_URL)
+        dispatch({type:'GET_ALL_BOOKINGS',payload:response.data})
+        dispatch({type:'LOADING',payload:false})
+
+
+    }
+    catch(error){
+        console.log(error)
+        dispatch({type:'LOADING',payload:false})
+
+    }
+}

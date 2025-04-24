@@ -14,7 +14,8 @@ const bookingSchema = new mongoose.Schema({
   startLocation: { type: String },
   endLocation: { type: String },
   pooling: { type: Boolean, default: false },
-   seatsAvailable:{type:Number}
+  seatsAvailable:{type:Number}
+   
 });
 
 const bookingModal = mongoose.model("bookingModal", bookingSchema);

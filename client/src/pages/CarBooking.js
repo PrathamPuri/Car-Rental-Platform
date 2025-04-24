@@ -72,7 +72,7 @@ function CarBooking() {
       car: car._id,
       totalAmount,
       hours,
-      driverRequire: driver,
+      driverRequired: driver,
       bookedTimeSlot: { startDate, endDate },
       startLocation,
       endLocation,
@@ -139,6 +139,8 @@ function CarBooking() {
                     />
                   </label>
 
+                  
+
                   {/* Start and End Date Inputs */}
                   <label className="flex justify-between items-center">
                     Start Date & Time:
@@ -204,11 +206,11 @@ function CarBooking() {
                   {/* Total Amount */}
                   {startDate && endDate && (
                     <div className="mt-4">
-                      <p className="text-lg font-bold text-gray-300">Total Hours: {hours}</p>
+                      <p className="text-lg font-bold text-gray-300">Total Hours: {hours?hours.toFixed(1):'0.0'}</p>
                       <p className="text-lg font-bold text-gray-300">
                         Rent per Hour: ₹{car.rent}
                       </p>
-                      <p className="text-lg font-bold text-yellow-400">Total Amount: ₹{totalAmount}</p>
+                      <p className="text-lg font-bold text-yellow-400">Total Amount: ₹{totalAmount?totalAmount.toFixed(1):'0.0'}</p>
 
                       <div className="flex justify-end mt-4">
                         <button

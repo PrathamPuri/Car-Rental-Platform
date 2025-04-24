@@ -25,13 +25,21 @@ export default function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/carpooling" element={<CarPooling />} />
 
           <Route
             path="/profile"
             element={
               <ProtectedRoutes>
                 <ProfilePage />
+              </ProtectedRoutes>
+            }
+          />
+
+<Route
+            path="/carpooling"
+            element={
+              <ProtectedRoutes>
+                <CarPooling/>
               </ProtectedRoutes>
             }
           />

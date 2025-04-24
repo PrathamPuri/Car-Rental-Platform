@@ -52,9 +52,6 @@ function Default(props) {
                 )}
               </Menu.Item>
 
-             
-              
-
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -74,6 +71,11 @@ function Default(props) {
 
       {/* Page Content */}
       <main className="flex-grow p-4">{props.children}</main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white text-center p-4 mt-10 shadow-inner">
+        <p>&copy; {new Date().getFullYear()} ZoomCarX. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
