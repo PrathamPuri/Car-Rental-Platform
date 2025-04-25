@@ -3,28 +3,31 @@ const bookingModal = require('../modals/carBooking');
 const router = express.Router();
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
-// Setup Nodemailer transporter (Gmail example)
+
+// ✅ Setup Nodemailer transporter (Gmail example)
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'puripratham11@gmail.com',        
-    pass: 'cnqo ujaw rnli fvpy',   
+    user: 'process.env.EMAIL_USER',        
+    pass: 'process.evn.EMAL_PASS',   // Use app password if using Gmail with 2FA
   },
 });
 
-// POST: Join a ride by ride ID
+// ✅ POST: Join a ride by ride ID
 router.post('/join/:id', async (req, res) => {
   try {
     const rideId = req.params.id;
     const { userId, email: userEmail } = req.body; 
-    console.log(userEmail);
+    console.log("Joining user email:", userEmail);
 
+    // Validate ride ID
     if (!mongoose.Types.ObjectId.isValid(rideId)) {
       return res.status(400).json({ message: 'Invalid ride ID' });
     }
 
-    // Populate user and car details
+    // Fetch ride with populated user (owner) and car details
     const ride = await bookingModal.findById(rideId)
       .populate('user', 'name email')
       .populate('car', 'name model');
@@ -33,30 +36,44 @@ router.post('/join/:id', async (req, res) => {
       return res.status(404).json({ message: 'Ride not found' });
     }
 
+    // Initialize passengers array if not present
     if (!ride.passengers) {
       ride.passengers = [];
     }
 
+    // Check if user already joined
     if (ride.passengers.includes(userId)) {
       return res.status(400).json({ message: 'You have already joined this ride' });
     }
 
+    // Check seat availability
     if (ride.seatsAvailable <= 0) {
       return res.status(400).json({ message: 'No available seats on this ride' });
     }
 
+    // Update ride data
     ride.passengers.push(userId);
     ride.seatsAvailable -= 1;
     await ride.save();
 
-    // Send email notification to ride owner
+    // ✅ Email to ride owner
     const mailOptions = {
-      from: userEmail, 
+      from: 'puripratham11@gmail.com', // your verified sender email
+      to: ride.user.email,             // ✅ ride owner's email
       subject: 'Someone joined your carpool ride',
-      text: `Hi ${ride.user.name},\n\nA user has joined your carpool ride from ${ride.startLocation} to ${ride.endLocation}.\n\nRide Details:\n- Date: ${new Date(ride.bookedTimeSlot.startDate).toLocaleString()}\n- Car: ${ride.car.name} (${ride.car.model})\n\nThanks for using our service!\n\nCar Pooling System`,
-    };
-    console.log(ride.user.email);
+      text: `Hi ${ride.user.name},
 
+A user (${userEmail}) has joined your carpool ride from ${ride.startLocation} to ${ride.endLocation}.
+
+📅 Ride Date & Time: ${new Date(ride.bookedTimeSlot.startDate).toLocaleString()}
+🚗 Car: ${ride.car.name} (${ride.car.model})
+
+Thanks for using our Car Pooling System!
+
+- Team CarPool`,
+    };
+
+    // ✅ Send the email
     try {
       await transporter.sendMail(mailOptions);
       console.log(`✅ Email sent to ${ride.user.email}`);
@@ -67,7 +84,7 @@ router.post('/join/:id', async (req, res) => {
     res.status(200).json({ message: 'Joined the ride successfully', ride });
 
   } catch (error) {
-    console.error('Error joining ride:', error);
+    console.error('❌ Error joining ride:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
