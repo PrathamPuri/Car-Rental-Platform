@@ -10,8 +10,10 @@ const joiningRoutes=require('./routes/join')
 const cors = require('cors');
 app.use(express.json()); 
 const corsOptions = {
-    origin: 'https://car-rental-platform-two.vercel.app', 
+    origin: ['https://car-rental-platform-two.vercel.app', 'http://localhost:3000'],
+    credentials: true,
   };
+  
   app.use(cors(corsOptions));
 
 app.use('/api/cars', carRoutes);

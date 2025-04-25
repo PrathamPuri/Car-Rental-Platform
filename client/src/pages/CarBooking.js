@@ -25,7 +25,13 @@ function CarBooking() {
   const [totalAmount, setTotalAmount] = useState(null);
   const [driver, setDriver] = useState(false);
   const [pooling, setPooling] = useState(false);
-  const [seatsAvailable, setSeatsAvailable] = useState(1);  // Default 1 seat available
+  const [seatsAvailable, setSeatsAvailable] = useState(1);
+  const [isBooked, setIsBooked] = useState(false);  // Default 1 seat available
+
+  const handleBooking = () => {
+    setIsBooked(true); 
+    bookNow();
+  };
 
   const calculateHours = () => {
     if (startDate && endDate) {
@@ -84,24 +90,24 @@ function CarBooking() {
 
   return (
     <Default>
-      <div className="min-h-screen bg-gray-900 text-white p-10">
+      <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-6 md:p-10">
         {loading && <Loader />}
 
         {car ? (
-          <div className="carbooking flex flex-col md:flex-row bg-gray-800 rounded-lg shadow-lg p-6">
+          <div className="carbooking grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6">
             {/* Car Info Section */}
-            <div className="md:w-1/2 flex justify-center mb-6 md:mb-0">
+            <div className="flex justify-center items-center">
               <img
                 src={car.image}
                 alt={car.name}
-                className="w-full h-full object-cover rounded-lg shadow-lg"
+                className="w-full max-w-md h-auto object-cover rounded-lg shadow-lg"
               />
             </div>
 
             {/* Booking Form Section */}
-            <div className="md:w-1/2 px-4">
-              <div className="carinfo p-6 bg-gray-700 rounded-md mb-4">
-                <h2 className="text-xl font-semibold text-yellow-400 mb-4">Car Info</h2>
+            <div className="px-2 sm:px-4">
+              <div className="carinfo p-4 sm:p-6 bg-gray-700 rounded-md mb-4">
+                <h2 className="text-lg sm:text-xl font-semibold text-yellow-400 mb-2 sm:mb-4">Car Info</h2>
                 <p className="text-lg font-semibold text-gray-300">{car.name}</p>
                 <p className="text-md text-gray-300">Model: {car.model}</p>
                 <p className="text-md text-gray-300">
@@ -112,37 +118,35 @@ function CarBooking() {
               </div>
 
               {/* Booking Time Slot */}
-              <div className="timeSlots bg-gray-700 rounded-md p-6">
-                <h2 className="text-xl font-semibold text-yellow-400 mb-4">Select Time Slots</h2>
+              <div className="timeSlots bg-gray-700 rounded-md p-4 sm:p-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-yellow-400 mb-4">Select Time Slots</h2>
 
-                {/* Start and End Location Inputs */}
                 <div className="flex flex-col space-y-4 mb-4">
-                  <label className="flex justify-between items-center">
+                  {/* Start & End Location */}
+                  <label className="flex flex-col text-sm sm:text-base">
                     Start Location:
                     <input
                       type="text"
                       value={startLocation}
                       onChange={(e) => setStartLocation(e.target.value)}
-                      className="p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
+                      className="mt-1 p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
                       placeholder="Enter start location"
                     />
                   </label>
 
-                  <label className="flex justify-between items-center">
+                  <label className="flex flex-col text-sm sm:text-base">
                     End Location:
                     <input
                       type="text"
                       value={endLocation}
                       onChange={(e) => setEndLocation(e.target.value)}
-                      className="p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
+                      className="mt-1 p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
                       placeholder="Enter end location"
                     />
                   </label>
 
-                  
-
-                  {/* Start and End Date Inputs */}
-                  <label className="flex justify-between items-center">
+                  {/* Date Pickers */}
+                  <label className="flex flex-col text-sm sm:text-base">
                     Start Date & Time:
                     <DatePicker
                       selected={startDate}
@@ -150,11 +154,11 @@ function CarBooking() {
                       showTimeSelect
                       timeIntervals={15}
                       dateFormat="yyyy/MM/dd HH:mm"
-                      className="p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
+                      className="mt-1 p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
                     />
                   </label>
 
-                  <label className="flex justify-between items-center">
+                  <label className="flex flex-col text-sm sm:text-base">
                     End Date & Time:
                     <DatePicker
                       selected={endDate}
@@ -164,24 +168,24 @@ function CarBooking() {
                       dateFormat="yyyy/MM/dd HH:mm"
                       minDate={startDate}
                       disabled={!startDate}
-                      className="p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
+                      className="mt-1 p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
                     />
                   </label>
 
-                  {/* Seats Available */}
-                  <label className="flex justify-between items-center">
+                  {/* Seats */}
+                  <label className="flex flex-col text-sm sm:text-base">
                     Seats Available:
                     <input
                       type="number"
                       value={seatsAvailable}
                       onChange={handleSeatsChange}
                       min="1"
-                      className="p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
+                      className="mt-1 p-2 bg-gray-600 text-white border border-gray-500 rounded-md focus:ring-yellow-400"
                     />
                   </label>
 
-                  {/* Optional Checkbox for Driver and Pooling */}
-                  <div className="flex justify-between items-center space-x-4">
+                  {/* Checkboxes */}
+                  <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
                     <label className="flex items-center">
                       <input
                         type="checkbox"
@@ -206,20 +210,28 @@ function CarBooking() {
                   {/* Total Amount */}
                   {startDate && endDate && (
                     <div className="mt-4">
-                      <p className="text-lg font-bold text-gray-300">Total Hours: {hours?hours.toFixed(1):'0.0'}</p>
-                      <p className="text-lg font-bold text-gray-300">
-                        Rent per Hour: ₹{car.rent}
-                      </p>
-                      <p className="text-lg font-bold text-yellow-400">Total Amount: ₹{totalAmount?totalAmount.toFixed(1):'0.0'}</p>
+                      <p className="text-base font-bold text-gray-300">Total Hours: {hours ? hours.toFixed(1) : '0.0'}</p>
+                      <p className="text-base font-bold text-gray-300">Rent per Hour: ₹{car.rent}</p>
+                      <p className="text-lg font-bold text-yellow-400">Total Amount: ₹{totalAmount ? totalAmount.toFixed(1) : '0.0'}</p>
 
-                      <div className="flex justify-end mt-4">
-                        <button
-                          onClick={bookNow}
-                          className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 px-6 py-2 rounded-md font-semibold"
-                        >
-                          Book Now
-                        </button>
-                      </div>
+                      {/* Hide button if booking is complete */}
+                      {!isBooked && (
+                        <div className="flex justify-end mt-4">
+                          <button
+                            onClick={handleBooking}
+                            className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 px-6 py-2 rounded-md font-semibold"
+                          >
+                            Book Now
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Confirmation Message */}
+                      {isBooked && (
+                        <div className="mt-4 text-center text-lg text-green-400">
+                          <p>Your booking has been confirmed!</p>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -232,6 +244,7 @@ function CarBooking() {
       </div>
     </Default>
   );
+
 }
 
 export default CarBooking;

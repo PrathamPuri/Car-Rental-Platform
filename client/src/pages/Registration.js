@@ -26,94 +26,88 @@ function Registration() {
 
   return (
     <>
-      <div className="flex justify-end min-h-screen px-6 py-12 bg-gray-900">
-        <div className="flex pl-10 items-center w-3/4">
-          <img src={carImage} alt="carImage" className="w-2/3" />
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-center min-h-screen px-4 py-10 bg-gray-900">
+        {/* Image Section */}
+        <div className="w-full lg:w-1/2 flex justify-center items-center px-4 mb-12 lg:mb-0">
+          <img
+            src={carImage}
+            alt="Car"
+            className="w-full max-w-md lg:max-w-lg rounded-lg shadow-lg"
+          />
         </div>
-
-        <div className="loginContainer w-full max-w-md bg-gray-800 border-gray-600 shadow-lg rounded-md h-fit">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-300">
-              Register
-            </h2>
-          </div>
-
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm p-5">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              
-              <div className="p-2">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-                  Name
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name} 
-                    onChange={handleChange}
-                    className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-gray-100 border border-gray-600 placeholder:text-gray-100 focus:ring-2 sm:text-sm"
-                  />
-                </div>
-              </div>
-
-             
-              <div className="p-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email} 
-                    onChange={handleChange}
-                    autoComplete="email"
-                    className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-gray-100 border border-gray-600 placeholder:text-gray-100 focus:ring-2 sm:text-sm"
-                  />
-                </div>
-              </div>
-
-             
-              <div className="p-2">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                  Password
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={formData.password}  
-                    onChange={handleChange}
-                    autoComplete="current-password"
-                    className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-gray-100 border border-gray-600 placeholder:text-gray-400 focus:ring-2 sm:text-sm"
-                  />
-                </div>
-              </div>
-
+  
+        {/* Form Section */}
+        <div className="w-full max-w-md bg-gray-800 border border-gray-700 shadow-xl rounded-lg p-8">
+          <h2 className="text-center text-3xl font-bold text-yellow-400 mb-6">
+            Register for an account
+          </h2>
+  
+          <form className="space-y-6" onSubmit={handleSubmit}>
             
-              <div className="p-2">
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-blue-500 focus:outline-indigo-600"
-                >
-                  Sign up
-                </button>
-                <Link to="/login" className="flex justify-center pt-2 text-blue-400">
-                  Click Here To Login
-                </Link>
-              </div>
-            </form>
-          </div>
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-md bg-gray-700 px-4 py-2 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
+  
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                Email address
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-md bg-gray-700 px-4 py-2 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
+  
+            {/* Password Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-md bg-gray-700 px-4 py-2 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
+  
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-yellow-400 text-gray-900 font-semibold py-2 rounded-md hover:bg-yellow-300 transition duration-200"
+            >
+              Sign up
+            </button>
+  
+            {/* Link to Login Page */}
+            <p className="text-center text-sm text-gray-400 mt-4">
+              Already have an account?{" "}
+              <Link to="/login" className="text-yellow-400 hover:underline">
+                Click here to login
+              </Link>
+            </p>
+          </form>
         </div>
       </div>
     </>
   );
+  
+
 }
 
 export default Registration;
