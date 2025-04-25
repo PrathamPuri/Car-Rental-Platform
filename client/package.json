@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.6.0",
     "aos": "^2.3.4",
     "axios": "^1.8.1",

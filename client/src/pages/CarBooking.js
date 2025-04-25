@@ -25,7 +25,7 @@ function CarBooking() {
   const [totalAmount, setTotalAmount] = useState(null);
   const [driver, setDriver] = useState(false);
   const [pooling, setPooling] = useState(false);
-  const [seatsAvailable, setSeatsAvailable] = useState(1);
+  const [seatsAvailable, setSeatsAvailable] = useState();
   const [isBooked, setIsBooked] = useState(false);  // Default 1 seat available
 
   const handleBooking = () => {
@@ -41,11 +41,12 @@ function CarBooking() {
   };
 
   const handleSeatsChange = (e) => {
-    const newSeats = e.target.value;
-    if (newSeats >= 1) {
+    let newSeats = parseInt(e.target.value, 10); // Convert to a number
+    if (newSeats >= 1 || e.target.value === "") {  // Allow empty value (if you want to clear it)
       setSeatsAvailable(newSeats);
     }
   };
+  
 
   useEffect(() => {
     calculateHours();
