@@ -8,7 +8,7 @@ export const bookingCAr=(reqObj)=>async(dispatch)=>{
     dispatch({type:'LOADING',payload:true})
 
     try{
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/bookings/booking`,reqObj)
+        await axios.post(`https://car-rental-platform-gs79.onrender.com/api/bookings/booking`,reqObj)
         dispatch({type:'LOADING',payload:false})
         console.log("Booking Successful - Showing Toast");
         console.log(reqObj)
@@ -34,7 +34,7 @@ export const getAllBookings=()=>async dispatch=>{
     const user = JSON.parse(localStorage.getItem('user'));
 
     try{
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getAllBookings`,
+        const response = await axios.get(`https://car-rental-platform-gs79.onrender.com/getAllBookings`,
             {
                 params: { userId: user._id }, // Pass userId as query param
               }
