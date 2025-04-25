@@ -10,7 +10,7 @@ const joiningRoutes=require('./routes/join')
 const cors = require('cors');
 app.use(express.json()); 
 const corsOptions = {
-    origin: 'https://your-frontend-domain.vercel.app', 
+    origin: 'https://car-rental-platform-two.vercel.app', 
   };
   app.use(cors(corsOptions));
 
