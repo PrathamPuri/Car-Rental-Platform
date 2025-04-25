@@ -4,7 +4,7 @@ export const userLogin = (reqObj) => async (dispatch) => {
     dispatch({ type: 'LOADING', payload: true });
 
     try {
-        const response = await axios.post(`https://car-rental-platform-gs79.onrender.com/api/users/login`, reqObj);
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/login`, reqObj);
 
         localStorage.setItem('user', JSON.stringify(response.data));
 
@@ -23,7 +23,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
     dispatch({ type: 'LOADING', payload: true });
 
     try {
-        await axios.post(`https://car-rental-platform-gs79.onrender.com/api/users/register`, reqObj);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/register`, reqObj);
 
         dispatch({ type: 'LOADING', payload: false });
 

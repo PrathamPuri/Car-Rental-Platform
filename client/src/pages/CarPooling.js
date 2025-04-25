@@ -23,7 +23,7 @@ const CarPoolingPage = () => {
       }).toString();
 
       const response = await axios.get(
-        `https://car-rental-platform-gs79.onrender.com/api/pooling/booked?${queryParams}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/pooling/booked?${queryParams}`
       );
 
       setRides(response.data);
