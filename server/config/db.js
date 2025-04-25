@@ -1,12 +1,22 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-function DBconnect(){
-    mongoose.connect('mongodb://localhost:27017/carRentalProject')
-    const connection=mongoose.connection
+async function DBconnect() {
+  try {
+    const DB_URI = process.env.DB_URI;
+    
+    // Connecting to MongoDB
+    await mongoose.connect(DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    connection.on('connected',()=>console.log('connected'))
-    connection.on('error',()=>console.log('not connected'))
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+  }
 }
-DBconnect()
 
-module.exports=mongoose
+DBconnect();
+
+module.exports = mongoose;

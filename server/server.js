@@ -8,9 +8,11 @@ const bookingRoutes=require('./routes/bookingRoutes')
 const poolingRoutes=require('./routes/poolingRoutes')
 const joiningRoutes=require('./routes/join')
 const cors = require('cors');
-
 app.use(express.json()); 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://your-frontend-domain.vercel.app', 
+  };
+  app.use(cors(corsOptions));
 
 app.use('/api/cars', carRoutes);
 app.use('/api/users',userRoutes);
